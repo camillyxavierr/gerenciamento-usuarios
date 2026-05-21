@@ -40,14 +40,31 @@ public class UsuarioService {
         List<UsuarioRespostaDto> lista = new ArrayList<>();
 
         for (UsuarioEntity usuario : listaUsuario){
-            UsuarioRespostaDto listaDeUsuario = new UsuarioRespostaDto();
+            UsuarioRespostaDto usuarios = new UsuarioRespostaDto();
 
-            listaDeUsuario.setCpf(usuario.getCpf());
-            listaDeUsuario.setNome(usuario.getNome());
-            listaDeUsuario.setLogin(usuario.getLogin());
+            usuarios.setCpf(usuario.getCpf());
+            usuarios.setNome(usuario.getNome());
+            usuarios.setLogin(usuario.getLogin());
 
-            lista.add(listaDeUsuario);
+            lista.add(usuarios);
         }
         return lista;
+    }
+
+    public UsuarioRespostaDto buscarUsuarioPorCpf(String cpf){
+
+        UsuarioRespostaDto usuarios = new UsuarioRespostaDto();
+
+        for (UsuarioEntity usuario : listaUsuario){
+
+            if (usuarios.getCpf().equals(cpf)){
+
+                usuarios.setCpf(usuario.getCpf());
+                usuarios.setNome(usuario.getNome());
+                usuarios.setLogin(usuario.getLogin());
+                break;
+            }
+        }
+        return usuarios;
     }
 }
