@@ -35,7 +35,6 @@ public class UsuarioController {
         return ResponseEntity.ok().body(service.obterUsuarios());
     }
 
-    //Não esta funcionando!
     @GetMapping("/usuario/{cpf}")
     public ResponseEntity<Object> buscarUsuarioPorCpf(@PathVariable String cpf){
         RespostaUsuarioDto resposta = service.buscarUsuarioPorCpf(cpf);
