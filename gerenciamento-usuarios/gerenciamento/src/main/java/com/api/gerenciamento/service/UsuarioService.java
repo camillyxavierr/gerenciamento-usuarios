@@ -1,5 +1,6 @@
 package com.api.gerenciamento.service;
 
+import com.api.gerenciamento.dto.LoginDto;
 import com.api.gerenciamento.dto.RespostaUsuarioDto;
 import com.api.gerenciamento.dto.UsuarioDto;
 import com.api.gerenciamento.entity.UsuarioEntity;
@@ -68,7 +69,6 @@ public class UsuarioService {
                 usuario.setCpf(usuarioDto.getCpf());
                 usuario.setNome(usuarioDto.getNome());
                 usuario.setLogin(usuarioDto.getLogin());
-                usuario.setSenha(usuarioDto.getSenha());
                 return true;
             }
         }
@@ -96,6 +96,21 @@ public class UsuarioService {
                 listaUsuario.remove(usuario);
                 return true;
             }
+        }
+        return false;
+    }
+
+    public boolean logar(LoginDto loginDto){
+
+        for (UsuarioEntity usuario : listaUsuario){
+            if (loginDto.getLogin().equals(loginDto.getLogin())){
+                if (loginDto.getSenha().equals(loginDto.getSenha())){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
         }
         return false;
     }
