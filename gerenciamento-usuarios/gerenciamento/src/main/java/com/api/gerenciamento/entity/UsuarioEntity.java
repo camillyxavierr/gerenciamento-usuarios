@@ -2,6 +2,7 @@ package com.api.gerenciamento.entity;
 
 public class UsuarioEntity {
 
+
     private String cpf;
     private String nome;
     private String login;
@@ -9,6 +10,7 @@ public class UsuarioEntity {
 
     public UsuarioEntity() {
     }
+
 
     public String getCpf() {
         return cpf;

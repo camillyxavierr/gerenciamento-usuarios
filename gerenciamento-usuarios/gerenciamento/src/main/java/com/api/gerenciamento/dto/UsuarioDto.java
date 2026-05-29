@@ -2,6 +2,7 @@ package com.api.gerenciamento.dto;
 
 public class UsuarioDto {
 
+
     private String cpf;
     private String nome;
     private String login;
@@ -9,6 +10,7 @@ public class UsuarioDto {
 
     public UsuarioDto() {
     }
+
 
     public String getCpf() {
         return cpf;

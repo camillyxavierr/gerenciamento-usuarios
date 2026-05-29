@@ -1,7 +1,7 @@
 package com.api.gerenciamento.service;
 
+import com.api.gerenciamento.dto.RespostaUsuarioDto;
 import com.api.gerenciamento.dto.UsuarioDto;
-import com.api.gerenciamento.dto.UsuarioRespostaDto;
 import com.api.gerenciamento.entity.UsuarioEntity;
 import org.springframework.stereotype.Service;
 
@@ -35,12 +35,12 @@ public class UsuarioService {
 
     }
 
-    public List<UsuarioRespostaDto> obterUsuarios(){
+    public List<RespostaUsuarioDto> obterUsuarios(){
 
-        List<UsuarioRespostaDto> lista = new ArrayList<>();
+        List<RespostaUsuarioDto> lista = new ArrayList<>();
 
         for (UsuarioEntity usuario : listaUsuario){
-            UsuarioRespostaDto usuarios = new UsuarioRespostaDto();
+            RespostaUsuarioDto usuarios = new RespostaUsuarioDto();
 
             usuarios.setCpf(usuario.getCpf());
             usuarios.setNome(usuario.getNome());
@@ -51,20 +51,51 @@ public class UsuarioService {
         return lista;
     }
 
-    public UsuarioRespostaDto buscarUsuarioPorCpf(String cpf){
-
-        UsuarioRespostaDto usuarios = new UsuarioRespostaDto();
+    public RespostaUsuarioDto buscarUsuarioPorCpf(String cpf){
+        RespostaUsuarioDto usuarios = new RespostaUsuarioDto();
 
         for (UsuarioEntity usuario : listaUsuario){
-
             if (usuarios.getCpf().equals(cpf)){
-
                 usuarios.setCpf(usuario.getCpf());
                 usuarios.setNome(usuario.getNome());
                 usuarios.setLogin(usuario.getLogin());
                 break;
             }
         }
+
         return usuarios;
+    }
+
+    public boolean atualizarUsuario(String cpf, UsuarioDto usuarioDto){
+
+        for (UsuarioEntity usuario : listaUsuario){
+            if (usuario.getLogin().equals(usuarioDto.getLogin())){
+                if (!usuario.getCpf().equals(cpf)) {
+                    return false;
+                }
+            }
+        }
+
+        for (UsuarioEntity usuario : listaUsuario){
+            if (usuario.getCpf().equals(cpf)) {
+                usuario.setCpf(usuarioDto.getCpf());
+                usuario.setNome(usuarioDto.getNome());
+                usuario.setLogin(usuarioDto.getLogin());
+                usuario.setSenha(usuarioDto.getSenha());
+                return true;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean removerUsuario(String cpf){
+        for (UsuarioEntity usuario : listaUsuario){
+            if (usuario.getCpf().equals(cpf)){
+                listaUsuario.remove(usuario);
+                return true;
+            }
+        }
+        return false;
     }
 }
