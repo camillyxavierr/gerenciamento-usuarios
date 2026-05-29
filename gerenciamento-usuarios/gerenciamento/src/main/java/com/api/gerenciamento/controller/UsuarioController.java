@@ -5,12 +5,12 @@ import com.api.gerenciamento.dto.UsuarioDto;
 import com.api.gerenciamento.service.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
-@Controller
+@RestController
 @RequestMapping("api")
 public class UsuarioController {
 
@@ -36,14 +36,13 @@ public class UsuarioController {
     }
 
     //Não esta funcionando!
-    @GetMapping("/usuarios/{cpf}")
-    public ResponseEntity<RespostaUsuarioDto> buscarUsuarioPorCpf(@PathVariable String cpf){
+    @GetMapping("/usuario/{cpf}")
+    public ResponseEntity<Object> buscarUsuarioPorCpf(@PathVariable String cpf){
         RespostaUsuarioDto resposta = service.buscarUsuarioPorCpf(cpf);
-
-        if (resposta.getCpf().isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resposta);
-        }else {
-            return ResponseEntity.status(HttpStatus.FOUND).body(resposta);
+        if (!resposta.getCpf().equals(cpf)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não existe!");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(resposta);
         }
     }
 
@@ -54,7 +53,7 @@ public class UsuarioController {
         if (retorno) {
             return ResponseEntity.ok().body("Atualizado com sucesso");
         } else {
-            return ResponseEntity.badRequest().body("Já existe este login cadastrado!");
+            return ResponseEntity.badRequest().body("Usuario não existe!");
         }
 
     }

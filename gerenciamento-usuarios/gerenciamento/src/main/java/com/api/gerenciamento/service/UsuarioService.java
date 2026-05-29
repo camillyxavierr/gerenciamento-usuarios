@@ -3,6 +3,8 @@ package com.api.gerenciamento.service;
 import com.api.gerenciamento.dto.RespostaUsuarioDto;
 import com.api.gerenciamento.dto.UsuarioDto;
 import com.api.gerenciamento.entity.UsuarioEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -51,21 +53,6 @@ public class UsuarioService {
         return lista;
     }
 
-    public RespostaUsuarioDto buscarUsuarioPorCpf(String cpf){
-        RespostaUsuarioDto usuarios = new RespostaUsuarioDto();
-
-        for (UsuarioEntity usuario : listaUsuario){
-            if (usuarios.getCpf().equals(cpf)){
-                usuarios.setCpf(usuario.getCpf());
-                usuarios.setNome(usuario.getNome());
-                usuarios.setLogin(usuario.getLogin());
-                break;
-            }
-        }
-
-        return usuarios;
-    }
-
     public boolean atualizarUsuario(String cpf, UsuarioDto usuarioDto){
 
         for (UsuarioEntity usuario : listaUsuario){
@@ -87,6 +74,20 @@ public class UsuarioService {
         }
 
         return true;
+    }
+
+    public RespostaUsuarioDto buscarUsuarioPorCpf(String cpf){
+
+        RespostaUsuarioDto usuarioDto = new RespostaUsuarioDto();
+        for (UsuarioEntity usuario : listaUsuario){
+            if (usuario.getCpf().equals(cpf)){
+                usuarioDto.setNome(usuario.getNome());
+                usuarioDto.setCpf(usuario.getCpf());
+                usuarioDto.setLogin(usuario.getLogin());
+                break;
+            }
+        }
+        return usuarioDto;
     }
 
     public boolean removerUsuario(String cpf){

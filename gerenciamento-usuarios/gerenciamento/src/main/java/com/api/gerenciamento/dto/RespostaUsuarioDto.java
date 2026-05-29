@@ -7,9 +7,9 @@ public class RespostaUsuarioDto {
 
         public RespostaUsuarioDto() {
 
-            this.cpf = cpf;
-            this.nome = nome;
-            this.login = login;
+            this.cpf = "";
+            this.nome = "";
+            this.login = "";
         }
 
 
